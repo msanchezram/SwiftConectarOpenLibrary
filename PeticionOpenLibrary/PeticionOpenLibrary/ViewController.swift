@@ -39,6 +39,7 @@ class ViewController: UIViewController {
         //print("Has pulsado Enter")
         //ind2Carga.startAnimating()
         sincrono()
+        
         //indCarga.stopAnimating()
     }
     
@@ -51,9 +52,10 @@ class ViewController: UIViewController {
         
         sincrono()
         //ind2Carga.stopAnimating()
+        
     }
     
-    func sincrono() {
+    func sincrono()  {
         
         /*
         let urls = "https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN:978-84-376-0494-7"
@@ -64,18 +66,32 @@ class ViewController: UIViewController {
         //print(dirURL!)
         let urls = "https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN:\(dirURL!)"
         print(urls)
+        
         let url = NSURL(string: urls)
         
-        let datos:NSData? = NSData(contentsOf: url! as URL)
-        
-        let texto = NSString(data:datos! as Data, encoding: String.Encoding.utf8.rawValue)
-        //print(texto!)
-
-        if ((texto?.length)!>2){
-            tv2Resultado.text = texto as String!
+        let datos = NSData(contentsOf: url! as URL)
+        if (datos == nil){
+            //tv2Resultado.text = "Ha habido un error con la conexión a Open Library, por favor vuélvalo a intentar más tarde."
+            let alertController = UIAlertController(title: "Error", message:
+                "Ha habido un error con la conexión a Open Library, por favor vuélvalo a intentar más tarde.", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+            
+            self.present(alertController, animated: true, completion: nil)
+            
         }else{
-            tv2Resultado.text="No hay datos de este libro"
+            let texto =  NSString(data:datos! as Data, encoding: String.Encoding.utf8.rawValue)
+        //print(texto!)
+            
+            if ((texto?.length)!>2){
+                tv2Resultado.text = texto as String!
+            }else{
+                tv2Resultado.text="No hay datos de este libro"
+            }
         }
+            
+        
+
+        
         
     }
 
