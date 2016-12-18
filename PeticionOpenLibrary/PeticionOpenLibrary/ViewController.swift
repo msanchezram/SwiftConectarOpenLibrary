@@ -21,6 +21,9 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var ind2Carga: UIActivityIndicatorView!
     
+    
+    @IBOutlet weak var limpiar: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -39,6 +42,10 @@ class ViewController: UIViewController {
         //indCarga.stopAnimating()
     }
     
+    @IBAction func pushLimpiar(_ sender: Any) {
+        tIsbn.text=""
+        tv2Resultado.text=""
+    }
 
     @IBAction func pushBuscar(_ sender: Any) {
         
